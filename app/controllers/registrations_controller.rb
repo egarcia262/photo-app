@@ -7,13 +7,13 @@ class RegistrationsController < Devise::RegistrationsController
       if resource.persisted?
         @payment = Payment.new({ email: params["user"]["email"], 
         token: params[:payment]["token"], user_id: resource.id })
-        flash[:error] = "Please check registration errors" unless @payment.valid?
+        flash[:alert] = "Please check registration errors" unless @payment.valid?
         
         begin
           @payment.process_payment
           @payment.save
         rescue Exception => e
-          flash[:error] = e.message
+          flash[:alert] = e.message
           resource.destroy
           puts 'Payment Failed'
           render :new and return
