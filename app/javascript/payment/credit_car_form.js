@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).on('ready turbolinks:load', function() {
   var show_error, stripeResponseHandler, submitHandler;
 
   submitHandler = function (event) {
